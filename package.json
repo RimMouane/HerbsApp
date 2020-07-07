@@ -1,0 +1,19 @@
+{
+  "name": "herbsapp",
+  "version": "1.0.0",
+  "description": "1. Install dependencies `npm install`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RimMouane/HerbsApp.git"
+  },
+  "author": "Rim Mouane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RimMouane/HerbsApp/issues"
+  },
+  "homepage": "https://github.com/RimMouane/HerbsApp#readme"
+}

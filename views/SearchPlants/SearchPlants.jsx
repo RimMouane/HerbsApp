@@ -2,28 +2,22 @@ import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
 import PlantsList from "./PlantsList/PlantsList";
-import postData from "../../Api/request";
+import data from "../../Api/mocks/data";
+import search from "../../common/helpers/search";
 
 export default class SearchPlants extends Component {
   state = {
     search: "",
-    data: [],
+    plants: data || [],
   };
 
-  updateSearch = (search) => {
-    this.setState({ search });
-    postData(
-      `https://trefle.io/api/plants?q=${search}&token=dnBPUW92TXhqb2ZoUXJxbDBYL3J0Zz09`,
-      //   "http://trefle.io/api/plants/186462/?token=dnBPUW92TXhqb2ZoUXJxbDBYL3J0Zz09",
-      { answer: 42 }
-    ).then((data) => {
-      console.log(data); // JSON data parsed by `data.json()` call
-      this.setState({ data });
-    });
+  updateSearch = (text) => {
+    this.setState({ search: text, plants: search(data, text) });
   };
 
   render() {
-    const { search, data } = this.state;
+    const { navigation } = this.props;
+    const { search, plants } = this.state;
 
     return (
       <>
@@ -33,7 +27,7 @@ export default class SearchPlants extends Component {
           onChangeText={this.updateSearch}
           value={search}
         />
-        <PlantsList data={data} />
+        <PlantsList navigation={navigation} plants={plants} />
       </>
     );
   }

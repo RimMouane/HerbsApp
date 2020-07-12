@@ -9,7 +9,7 @@ export const postData = async (url = "", data = {}) => {
       accept: "application/json",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer dnBPUW92TXhqb2ZoUXJxbDBYL3J0Zz09",
+        Authorization: "",
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       redirect: "follow", // manual, *follow, error

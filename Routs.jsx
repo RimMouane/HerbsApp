@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import Home from "./views/Home/Home";
 import SearchPlants from "./views/SearchPlants/SearchPlants";
 import Plant from "./views/Plant/Plant";
+import Login from "./views/Login/Login";
 
 const Stack = createStackNavigator();
 
@@ -11,6 +12,11 @@ const Routs = () => {
   return (
     <Layout>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ title: "Logowanie" }}
+        />
         <Stack.Screen
           name="Home"
           component={Home}

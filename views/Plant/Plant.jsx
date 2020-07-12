@@ -2,13 +2,21 @@ import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { setStorageData } from "../../Api/storageData";
+import { setStorageData, getStorageData } from "../../Api/storageData";
 
 export default function Plant({ route: { params } }) {
-  const { name, images } = params;
+  const { name, images, id } = params;
 
-  addToFavorite = () => {
-    const favorite = [];
+  const addToFavorite = () => {
+    getStorageData("@favouritePlants").then((result) => {
+      if (!result?.some((e) => e.name === name)) {
+        const newValueFavorite = JSON.stringify([
+          ...(result || []),
+          { name, id },
+        ]);
+        setStorageData("@favouritePlants", newValueFavorite);
+      }
+    });
   };
 
   return (
@@ -24,7 +32,7 @@ export default function Plant({ route: { params } }) {
         icon={<Icon name="arrow-right" size={15} color="black" />}
         title="Dodaj do ulubionych"
         type="clear"
-        onPress={login}
+        onPress={addToFavorite}
       />
     </View>
   );

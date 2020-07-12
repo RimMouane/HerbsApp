@@ -4,7 +4,7 @@ import { Input, Button, Text } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import userLogin from "../../common/helpers/userLogin";
 import AuthContext from "../../common/contexts/AuthContext.js";
-import { setStorageData, getStorageData } from "../../Api/storageData";
+import { setStorageData } from "../../Api/storageData";
 
 export default function Login() {
   const [state, setState] = useState({

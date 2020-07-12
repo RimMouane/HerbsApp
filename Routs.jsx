@@ -6,6 +6,7 @@ import Home from "./views/Home/Home";
 import SearchPlants from "./views/SearchPlants/SearchPlants";
 import Plant from "./views/Plant/Plant";
 import Login from "./views/Login/Login";
+import FavouritePlants from "./views/FavouritePlants/FavouritePlants";
 import AuthContext from "./common/contexts/AuthContext.js";
 import { getStorageData } from "./Api/storageData";
 
@@ -19,6 +20,7 @@ const userScreens = {
   Home,
   SearchPlants,
   Plant,
+  FavouritePlants,
 };
 
 const Routs = () => {

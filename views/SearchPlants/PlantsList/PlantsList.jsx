@@ -9,7 +9,7 @@ const PlantsList = ({ plants, navigation }) => {
           <Button
             key={id}
             title={name}
-            onPress={() => navigation.navigate("Plant", { name, images })}
+            onPress={() => navigation.navigate("Plant", { name, images, id })}
           />
         );
       })}

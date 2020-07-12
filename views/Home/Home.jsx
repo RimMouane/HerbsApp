@@ -15,7 +15,7 @@ export default function Plant({ navigation }) {
         />
         <Button
           title="Ulubione zioła"
-          onPress={() => navigation.navigate("FavoritePlants")}
+          onPress={() => navigation.navigate("FavouritePlants")}
         />
         <Button
           disabled

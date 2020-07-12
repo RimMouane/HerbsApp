@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { Input, Button, Text } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 import userLogin from "../../common/helpers/userLogin";
+import AuthContext from "../../common/contexts/AuthContext.js";
+import { setStorageData, getStorageData } from "../../Api/storageData";
 
-export default function Login({ navigation }) {
+export default function Login() {
   const [state, setState] = useState({
     username: "",
     password: "",
     loading: false,
+    error: false,
   });
+
+  const { signIn } = React.useContext(AuthContext);
 
   const handleUpdate = (name) => (text) => {
     setState({ ...state, [name]: text });
@@ -19,12 +24,18 @@ export default function Login({ navigation }) {
     const { username, password } = state;
     setState({ ...state, loading: true });
 
-    setTimeout(() => {
-      if (userLogin(username, password)) {
-        navigation.navigate("Home");
-      }
-      return setState({ username: "", password: "", loading: false });
-    }, 1000);
+    if (userLogin(username, password)) {
+      setStorageData("@userLoginIn", true).then(() =>
+        signIn(username, password)
+      );
+    }
+
+    return setState({
+      username: "",
+      password: "",
+      loading: false,
+      error: true,
+    });
   };
 
   return (
@@ -36,10 +47,8 @@ export default function Login({ navigation }) {
         </Text>
       </View>
       <Input
-        containerStyle={{
-          ...styles.containerStyle,
-          paddingBottom: "5%",
-        }}
+        errorMessage={state.error ? "Podaj prawidłowy login" : undefined}
+        containerStyle={styles.containerStyle}
         inputContainerStyle={styles.inputContainerStyle}
         placeholder="Login"
         leftIcon={<Icon name="user" size={18} color="black" />}
@@ -47,6 +56,7 @@ export default function Login({ navigation }) {
         value={state.username}
       />
       <Input
+        errorMessage={state.error ? "Podaj prawidłowe hasło" : undefined}
         containerStyle={styles.containerStyle}
         inputContainerStyle={styles.inputContainerStyle}
         placeholder="Hasło"
@@ -54,13 +64,7 @@ export default function Login({ navigation }) {
         onChangeText={handleUpdate("password")}
         value={state.password}
       />
-      <Button
-        loading={state.loading}
-        // onPress={() => navigation.navigate("SearchPlants")}
-        onPress={login}
-        containerStyle={styles.button}
-        title="Zaloguj"
-      />
+      <Button loading={state.loading} onPress={login} title="Zaloguj" />
     </View>
   );
 }
@@ -81,13 +85,13 @@ const styles = {
     height: "100%",
     width: "100%",
     display: "flex",
-    // bacgroundColor: "#D7E7D7",
     paddingRight: "10%",
     paddingLeft: "10%",
   },
   containerStyle: {
     paddingRight: "0%",
     paddingLeft: "0%",
+    paddingBottom: "5%",
   },
   inputContainerStyle: {
     borderRadius: 2,
@@ -98,8 +102,5 @@ const styles = {
   h1: {
     textAlign: "center",
     fontFamily: "Open Sans, Fondamento ",
-  },
-  button: {
-    marginTop: "5%",
   },
 };

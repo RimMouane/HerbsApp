@@ -22,8 +22,7 @@ export default class SearchPlants extends Component {
     return (
       <>
         <SearchBar
-          containerStyle={styles.container}
-          placeholder="Type Here..."
+          placeholder="Szukaj.."
           onChangeText={this.updateSearch}
           value={search}
         />
@@ -32,10 +31,3 @@ export default class SearchPlants extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    // borderRadius: "8px",
-  },
-});
